@@ -6,8 +6,7 @@ from sqlalchemy.orm import Session
 from fastapi import Depends
 from app.models.requests.login import UserCreate
 from app.security.secure import get_password_hash
-from datetime import date
-
+from fastapi.responses import JSONResponse
 
 class LoginService: 
     
@@ -23,5 +22,6 @@ class LoginService:
             success  = self.repo.insert_login(user)
             if success == False: 
                 return JSONResponse(content={'message':'create login problem encountered'}, status_code=500)
-            return success    
+            return success
+          
        
