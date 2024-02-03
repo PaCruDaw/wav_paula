@@ -6,8 +6,10 @@ import { Login } from './pages'
 import { List } from './pages'
 import { NotFound } from './pages'
 import { Discover } from './pages'
+import ProtectedRoute from "./components/ProtectedRoute"
+import React, { useEffect, useState } from "react";
 function App() {
-
+  const [user, setUser] = useState(null)
   return (
     <>
       <Routes>
@@ -15,16 +17,18 @@ function App() {
         <Route
           path="/dashboard/*"
           element={
-            <DashboardLayout>
-              <Routes>
-                <Route index element={<Home />} />
-                <Route path="test" element={<List />} />
-                <Route path="api" element={<Discover />} />
-              </Routes>
-            </DashboardLayout>
+            <ProtectedRoute isAllowed={!!user}>
+              <DashboardLayout>
+                <Routes>
+                  <Route index element={<Home />} />
+                  <Route path="test" element={<List />} />
+                  <Route path="api" element={<Discover />} />
+                </Routes>
+              </DashboardLayout>
+            </ProtectedRoute>
           }
         />
-        <Route path='*' element={<NotFound />}/>
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </>
   )
