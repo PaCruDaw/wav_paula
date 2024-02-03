@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Item } from '../components'
+import { apiService  } from "../api";
 const Discover = () => {
   const [characters, setCharacter] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const fetchData = () => {
-    return axios.get("https://thronesapi.com/api/v2/Characters")
-      .then((response) => { setCharacter(response.data); setIsLoading(false); });
+  const fetchData = () => {    
+    return apiService.fetchData("/Characters")
+      .then((response) => { 
+        console.log(response.data);
+        setCharacter(response.data); setIsLoading(false); });
 
   }
   useEffect(() => {
