@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react'
+import { Toaster, toast } from 'sonner'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import {
   ArrowPathIcon,
@@ -32,6 +33,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 bg-white">
+      <Toaster />
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link to="/dashboard" className="-m-1.5 p-1.5">
@@ -107,6 +109,9 @@ export default function Header() {
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
             Marketplace
           </a>
+          <button className="text-sm font-semibold leading-6 text-gray-900" onClick={() => toast('My first toast')}>
+            Give me a toast
+          </button>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
             Company
           </a>
