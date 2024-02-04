@@ -1,37 +1,46 @@
 import axios from 'axios';
+const apiUrl = 'http://localhost:5000/';
 
 class ApiService {
-  constructor() {
-    this.api = axios.create({
-      baseURL: 'https://thronesapi.com/api/v2',  // Replace with your API base URL
-      headers: {
-        'Content-Type': 'application/json',
-        // Add any other headers you need
-      },
-    });
-  }
-
-  // Example of a GET request
-  async fetchData(endpoint) {
-    try {
-      const response = await this.api.get(endpoint);
-      return response;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      throw error;
+    constructor() {
+        this.api = axios.create({
+            baseURL: `${apiUrl}`,  // Replace with your API base URL
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers you need
+            },
+        });
     }
-  }
 
-  // Example of a POST request
-  async postData(endpoint, data) {
-    try {
-      const response = await this.api.post(endpoint, data);
-      return response.data;
-    } catch (error) {
-      console.error('Error posting data:', error);
-      throw error;
+    // Example of a GET request
+    async fetchData(endpoint) {
+        try {
+            const response = await this.api.get(endpoint);
+            return response;
+        } catch (error) {
+            if (error.response.status === 404) {
+                console.log('No data found')
+                return 'No data found';
+            }
+            console.error('Error fetching data:', error);
+            throw error;
+        }
     }
-  }
+
+    // Example of a POST request
+    async postData(endpoint, data) {
+        try {
+            const response = await this.api.post(endpoint, data);
+            return response.data;
+        } catch (error) {
+            if (error.response.status === 404) {
+                console.log('No data found')
+                return 'No data found';
+            }
+            console.error('Error posting data:', error);
+            throw error;
+        }
+    }
 
 }
 

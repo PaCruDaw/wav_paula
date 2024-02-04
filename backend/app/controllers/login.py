@@ -36,6 +36,8 @@ def access_token(user:LoginReq, loginservice:LoginService = Depends(LoginService
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     
     account = loginservice.get_login(user.username)
+    if account is None:
+        return JSONResponse(status_code=404, content="User not found")
     if authenticate(user.username, user.password, account):
         access_token = create_access_token(
             data={"sub": user.username, "scopes": ['user']},

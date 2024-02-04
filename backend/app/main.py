@@ -1,5 +1,6 @@
 from typing import Union
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.db_config.database import Base
 from app.db_config.database import engine
 from app.controllers import login
@@ -8,7 +9,16 @@ from app.models.data.sqlalchemy_models import Users
 from fastapi import Security
 
 app = FastAPI()
-
+origins = [
+    "http://localhost:3000",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 def configure():
     app.include_router(login.router, prefix="/login")
     
