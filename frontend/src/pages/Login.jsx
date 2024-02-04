@@ -1,11 +1,25 @@
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
 export default function Login() {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    password: '',
+    email: '',
+  });
   const handleClick = (e) => {
     e.preventDefault();
     console.log('The link was clicked.');
+    console.log(formData)
     navigate('/dashboard');
   }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
   return (
     <>
 
@@ -33,8 +47,10 @@ export default function Login() {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="px-5 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -55,9 +71,11 @@ export default function Login() {
                   id="password"
                   name="password"
                   type="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="px-5 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -72,13 +90,6 @@ export default function Login() {
               </button>
             </div>
           </form>
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{' '}
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Start a 14 day free trial
-            </a>
-          </p>
         </div>
       </div>
     </>

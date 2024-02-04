@@ -9,7 +9,7 @@ import { Discover } from './pages'
 import ProtectedRoute from "./components/ProtectedRoute"
 import React, { useEffect, useState } from "react";
 function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(true)
   return (
     <>
       <Routes>
