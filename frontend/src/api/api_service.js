@@ -1,8 +1,9 @@
 import axios from 'axios';
-const apiUrl = 'http://localhost:5000/';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 class ApiService {
     constructor() {
+        console.log('API URL:',apiUrl);
         this.api = axios.create({
             baseURL: `${apiUrl}`,  // Replace with your API base URL
             headers: {
